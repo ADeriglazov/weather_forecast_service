@@ -33,7 +33,6 @@ public class HomeController {
         counter.put(sessionId, queryStack2Session);
 
         return "redirect:/";
-//        return new Greeting(counter.incrementAndGet(), String.format(template, city, day));
     }
 
     @GetMapping(value = "/")
