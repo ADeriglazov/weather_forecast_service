@@ -15,6 +15,6 @@
 #### Описание процесса запуска
 Для запуска решения необходимо
 1) Собрать проект командой
-  какая супер команда
+        какая супер команда
 2) Запустить собранный проект командой
-  java -jar weather-forecast-service-0.0.1-SNAPSHOT.jar
+        java -jar weather-forecast-service-0.0.1-SNAPSHOT.jar
