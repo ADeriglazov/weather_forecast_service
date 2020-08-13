@@ -2,6 +2,7 @@ package org.ad.restservice.controllers;
 
 
 import org.ad.request.handler.OWMWeatherForecastRequestHandlerImpl;
+import org.ad.request.handler.PageNotFoundException;
 import org.ad.request.handler.WeatherForecastRequestHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +23,19 @@ public class HomeController {
     private final ConcurrentHashMap<String, ConcurrentLinkedDeque<String>> counter = new ConcurrentHashMap();
 
     @PostMapping(value = "/")
-    public String greetingPost(@RequestParam(value = "city", defaultValue = "Moscow") String city)
+    public String greetingPost(@RequestParam(value = "city", defaultValue = "Москва") String city)
             throws IOException {
         WeatherForecastRequestHandler requestHandler = new OWMWeatherForecastRequestHandlerImpl();
 
         String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
-        String response = requestHandler.getResponse(city);
+        String response = null;
+        try {
+            response = requestHandler.getResponse(city);
+        } catch (PageNotFoundException e) {
+            System.out.println(String.format("WARNING! Handled PageNotFoundException. See the code below:\n%s", e.getMessage()));
+            response = String.format("Запрос погоды в городе %s не может быть выполнен, приносим свои извенения. " +
+                    "Возможно, ошибка в написании. Проверьте и попробуйте еще раз!", city);
+        }
         ConcurrentLinkedDeque<String> queryStack2Session = counter.getOrDefault(sessionId, new ConcurrentLinkedDeque<>());
         queryStack2Session.add(response);
         counter.put(sessionId, queryStack2Session);
