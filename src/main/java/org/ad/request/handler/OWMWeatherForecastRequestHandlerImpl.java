@@ -22,7 +22,7 @@ public class OWMWeatherForecastRequestHandlerImpl implements WeatherForecastRequ
         return ForecastBuilder.build(forecastElement);
     }
 
-    public WeatherForecastElement getResponseElement(String requestStr) throws PageNotFoundException, IOException {
+    public WeatherForecastElement getResponseElement(String requestStr) throws IOException {
         String mainRequest = String.format(REQUEST_FORMAT, requestStr);
         String comparativeRequest = String.format(REQUEST_FORMAT, MINSK_CITY_NAME);
 
@@ -36,14 +36,14 @@ public class OWMWeatherForecastRequestHandlerImpl implements WeatherForecastRequ
             main = jsonParser.parse(mainResponse);
             main.setCity(requestStr);
         } catch(ParseException e) {
-            throw new IOException(String.format("Error parsing json: %s\n", mainResponse), e);
+            throw new IOException(String.format("Error parsing json: %s%n", mainResponse), e);
         }
 
         try {
             comparative = jsonParser.parse(comparativeResponse);
             comparative.setCity(MINSK_CITY_NAME);
         } catch(ParseException e) {
-            throw new IOException(String.format("Error parsing json: %s\n", comparativeResponse), e);
+            throw new IOException(String.format("Error parsing json: %s%n", comparativeResponse), e);
         }
 
         main.setComparative(comparative);

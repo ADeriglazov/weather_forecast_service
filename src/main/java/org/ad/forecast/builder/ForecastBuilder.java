@@ -1,7 +1,9 @@
 package org.ad.forecast.builder;
 
+import lombok.experimental.UtilityClass;
 import org.ad.forecast.WeatherForecastElement;
 
+@UtilityClass
 public class ForecastBuilder {
 
     private static final String MINSK_FORECAST_FORMAT = "Сегодня в Минске от %.0f до %.0f °C. " +
@@ -15,8 +17,8 @@ public class ForecastBuilder {
 
     public static String build(WeatherForecastElement element) {
         String result;
-        if(element.getCity().toLowerCase().equals("minsk") ||
-                element.getCity().toLowerCase().equals("минск")) {
+        if(element.getCity().equalsIgnoreCase("minsk") ||
+                element.getCity().equalsIgnoreCase("минск")) {
             result = String.format(MINSK_FORECAST_FORMAT, element.getMinTemperature(),
                     element.getMaxTemperature(), element.getCurrentTemperature(),
                     element.getFeelsLikeTemperature());

@@ -8,8 +8,8 @@ import java.io.IOException;
 
 public class HttpRequestHandlerImpl implements RequestHandler {
 
-    private final static int UNKNOWN_CITY_NAME_CODE = 404;
-    private final static OkHttpClient httpClient = new OkHttpClient();
+    private static final int UNKNOWN_CITY_NAME_CODE = 404;
+    private static final OkHttpClient httpClient = new OkHttpClient();
 
     public String getResponse(String requestStr) throws IOException {
         requestStr = requestStr.replace(" ", "%20");
