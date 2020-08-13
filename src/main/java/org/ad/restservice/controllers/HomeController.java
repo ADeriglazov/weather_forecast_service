@@ -41,7 +41,7 @@ public class HomeController {
                     "Попробуйте мгновение спустя!", city);
         }
         ConcurrentLinkedDeque<String> queryStack2Session = counter.getOrDefault(sessionId, new ConcurrentLinkedDeque<>());
-        queryStack2Session.add(response);
+        queryStack2Session.addFirst(response);
         counter.put(sessionId, queryStack2Session);
 
         return "redirect:/";
@@ -51,7 +51,6 @@ public class HomeController {
     public String greetingGet(Model model) {
         String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
         List<String> historyStack = new LinkedList(counter.getOrDefault(sessionId, new ConcurrentLinkedDeque()));
-        Collections.reverse(historyStack);
         model.addAttribute("messages",historyStack);
         return "weather-view";
     }
