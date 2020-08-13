@@ -32,9 +32,13 @@ public class HomeController {
         try {
             response = requestHandler.getResponse(city);
         } catch (PageNotFoundException e) {
-            System.out.println(String.format("WARNING! Handled PageNotFoundException. See the code below:\n%s", e.getMessage()));
+            System.out.println(String.format("WARN: Handled PageNotFoundException. See the code below:\n%s", e.getMessage()));
             response = String.format("Запрос погоды в городе %s не может быть выполнен, приносим свои извенения. " +
                     "Возможно, ошибка в написании. Проверьте и попробуйте еще раз!", city);
+        } catch (IOException e) {
+            System.out.println(String.format("WARN: Handled IOException. While parsing:\n%s", e.getMessage()));
+            response = String.format("Запрос погоды в городе %s не может быть выполнен, приносим свои извенения. " +
+                    "Попробуйте мгновение спустя!", city);
         }
         ConcurrentLinkedDeque<String> queryStack2Session = counter.getOrDefault(sessionId, new ConcurrentLinkedDeque<>());
         queryStack2Session.add(response);
