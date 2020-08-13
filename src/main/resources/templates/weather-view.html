@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>weather_forecast_by_ad</title>
+</head>
+<body>
+<h2>Добрый день!</h2>
+<h3>Введите название города, чтобы получить актуальный прогноз погоды</h3>
+
+<form action="/" method="POST">
+    Город: <input type="text" name="city" value="Москва"/></br>
+    <input type="submit" value="Ok">
+</form>
+
+<br>
+<h3>Ваша история</h3>
+<p>
+    <th:block th:each="message : ${messages}">
+        <span th:text="${message}"></span> </br>
+    </th:block>
+</p>
+
+
+</body>
+</html>

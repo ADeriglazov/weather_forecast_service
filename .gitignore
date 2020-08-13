@@ -1,0 +1,14 @@
+*.DS_Store
+*.sw?
+.#*
+*#
+*~
+.classpath
+.project
+.settings
+bin
+build
+target
+README.html
+*.iml
+.idea
