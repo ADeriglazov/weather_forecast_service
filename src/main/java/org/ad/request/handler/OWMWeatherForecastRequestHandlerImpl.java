@@ -22,7 +22,7 @@ public class OWMWeatherForecastRequestHandlerImpl implements WeatherForecastRequ
         return ForecastBuilder.build(forecastElement);
     }
 
-    public WeatherForecastElement getResponseElement(String requestStr) throws IOException {
+    public WeatherForecastElement getResponseElement(String requestStr) throws PageNotFoundException, IOException {
         String mainRequest = String.format(REQUEST_FORMAT, requestStr);
         String comparativeRequest = String.format(REQUEST_FORMAT, MINSK_CITY_NAME);
 
